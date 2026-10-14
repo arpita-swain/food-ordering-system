@@ -1,0 +1,8 @@
+{
+  "name": "FoodieGo — Food Ordering & Delivery",
+  "description": "Discover top restaurants, fresh food, and quick delivery near you with FoodieGo. Order pizza, biryani, burgers, desserts and more with live GPS tracking.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

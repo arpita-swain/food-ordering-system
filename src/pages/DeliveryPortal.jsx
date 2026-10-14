@@ -167,9 +167,9 @@ export const DeliveryPortal = () => {
       {activeTab === 'active' && (
         <div className="space-y-6">
           {activeDeliveries.length > 0 ? (
-            activeDeliveries.map((order) => (
+            activeDeliveries.map((order, idx) => (
               <div
-                key={order.id}
+                key={`deliv-active-${order.id || idx}-${idx}`}
                 className="bg-white rounded-3xl border border-slate-100 shadow-md p-6 space-y-6"
               >
                 {/* Header */}
@@ -238,9 +238,9 @@ export const DeliveryPortal = () => {
                 {/* Status Update Action Buttons */}
                 <div className="pt-2 flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold text-slate-500 mr-2">Update Stage:</span>
-                  {['Confirmed', 'Preparing', 'Out for Delivery', 'Delivered'].map((st) => (
+                  {['Confirmed', 'Preparing', 'Out for Delivery', 'Delivered'].map((st, sIdx) => (
                     <button
-                      key={st}
+                      key={`deliv-stage-${st}-${sIdx}`}
                       onClick={() => handleUpdateStatus(order.id, st)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                         order.status === st
@@ -269,8 +269,8 @@ export const DeliveryPortal = () => {
       {/* Tab: Completed History */}
       {activeTab === 'history' && (
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm divide-y divide-slate-100 overflow-hidden">
-          {completedDeliveries.map((c) => (
-            <div key={c.id} className="p-4 sm:p-5 flex items-center justify-between">
+          {completedDeliveries.map((c, idx) => (
+            <div key={`deliv-hist-${c.id || idx}-${idx}`} className="p-4 sm:p-5 flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">

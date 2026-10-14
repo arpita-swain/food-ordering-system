@@ -182,9 +182,9 @@ export const Home = () => {
               {/* Quick tags */}
               <div className="flex items-center gap-2 flex-wrap text-xs text-slate-500 pt-1">
                 <span className="font-semibold text-slate-600">Popular:</span>
-                {['Biryani', 'Burgers', 'Pizza', 'Pure Veg', 'Rolls'].map((tag) => (
+                {['Biryani', 'Burgers', 'Pizza', 'Pure Veg', 'Rolls'].map((tag, idx) => (
                   <button
-                    key={tag}
+                    key={`popular-tag-${tag}-${idx}`}
                     onClick={() => {
                       if (tag === 'Pure Veg') {
                         setFilters((prev) => ({ ...prev, pureVeg: true }));
@@ -306,9 +306,9 @@ export const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {recommendedFoods.map((item) => (
+              {recommendedFoods.map((item, idx) => (
                 <Link
-                  key={item.id}
+                  key={`rec-food-${item.id || idx}-${idx}`}
                   to={`/restaurant/${item.restaurantId}`}
                   className="bg-white rounded-2xl p-3 border border-slate-100 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between"
                 >
@@ -367,13 +367,13 @@ export const Home = () => {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
               {[1, 2, 3, 4, 5, 6].map((i) => (
-                <RestaurantSkeleton key={i} />
+                <RestaurantSkeleton key={`home-skel-${i}`} />
               ))}
             </div>
           ) : filteredRestaurants.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
-              {filteredRestaurants.map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+              {filteredRestaurants.map((restaurant, idx) => (
+                <RestaurantCard key={`home-rest-${restaurant.id || idx}-${idx}`} restaurant={restaurant} />
               ))}
             </div>
           ) : (

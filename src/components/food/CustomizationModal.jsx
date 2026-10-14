@@ -113,7 +113,7 @@ export const CustomizationModal = ({
                     const isSelected = selectedSize?.name === sz.name;
                     return (
                       <label
-                        key={idx}
+                        key={`custom-size-${sz.name || idx}-${idx}`}
                         onClick={() => setSelectedSize(sz)}
                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                           isSelected
@@ -154,7 +154,7 @@ export const CustomizationModal = ({
                     const isChecked = selectedExtras.some((e) => e.name === extra.name);
                     return (
                       <label
-                        key={idx}
+                        key={`custom-extra-${extra.name || idx}-${idx}`}
                         onClick={() => toggleExtra(extra)}
                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                           isChecked

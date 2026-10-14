@@ -47,6 +47,20 @@ export const orderApi = {
     }
   },
 
+  // Get filtered past order history
+  async getOrderHistory(filters = {}) {
+    try {
+      const response = await apiClient.get('/orders/history', { params: filters });
+      return response.data;
+    } catch {
+      let orders = localDb.get('orders');
+      if (filters.status && filters.status.toLowerCase() !== 'all') {
+        orders = orders.filter(o => o.status?.toLowerCase() === filters.status.toLowerCase());
+      }
+      return orders;
+    }
+  },
+
   // Get order by ID
   async getOrderById(id) {
     try {

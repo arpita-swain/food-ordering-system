@@ -9,7 +9,8 @@ import {
   FileCheck,
   Send,
   Sparkles,
-  Bot
+  Bot,
+  Download
 } from 'lucide-react';
 import { SupportChatModal } from '../components/modals/SupportChatModal';
 import { useToast } from '../context/ToastContext';
@@ -92,11 +93,11 @@ export const Support = () => {
           Select Your Issue Category
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {issueCategories.map((c) => {
+          {issueCategories.map((c, idx) => {
             const isSelected = selectedIssueCategory === c.title;
             return (
               <div
-                key={c.title}
+                key={`support-cat-${c.title}-${idx}`}
                 onClick={() => setSelectedIssueCategory(c.title)}
                 className={`p-4 rounded-2xl border cursor-pointer transition-all ${
                   isSelected
@@ -174,7 +175,7 @@ export const Support = () => {
           {faqs.map((f, idx) => {
             const isOpen = activeFaq === idx;
             return (
-              <div key={idx} className="py-3.5">
+              <div key={`support-faq-${idx}`} className="py-3.5">
                 <button
                   type="button"
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
@@ -219,6 +220,31 @@ export const Support = () => {
             <div className="text-xs text-amber-800 font-semibold">support@foodiego.com</div>
           </div>
         </div>
+      </div>
+
+      {/* 5. Developer & Backend Download Card */}
+      <div className="mt-8 p-6 bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-xl">⚡</span>
+            <h3 className="text-lg font-bold">FastAPI + MySQL Backend Source Code</h3>
+            <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              Ready to Run
+            </span>
+          </div>
+          <p className="text-xs text-slate-300 mt-1 max-w-xl">
+            Download the complete standalone Python FastAPI backend archive containing models, schemas, routers, MySQL migrations, JWT auth, and seed data.
+          </p>
+        </div>
+
+        <a
+          href="/foodiego-backend.zip"
+          download="foodiego-backend.zip"
+          className="px-5 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold rounded-2xl shadow-lg shadow-orange-500/20 flex items-center gap-2 text-xs sm:text-sm transition-all shrink-0 active:scale-95"
+        >
+          <Download className="w-4 h-4" />
+          <span>Download Backend (.ZIP)</span>
+        </a>
       </div>
 
       {/* Support Chat Modal */}

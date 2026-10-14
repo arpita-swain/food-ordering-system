@@ -226,9 +226,9 @@ export const AdminDashboard = () => {
           { id: 'orders', label: `📦 Orders (${orders.length})` },
           { id: 'coupons', label: `🎟️ Offers & Coupons (${coupons.length})` },
           { id: 'users', label: `👥 Users (${users.length})` }
-        ].map((tab) => (
+        ].map((tab, idx) => (
           <button
-            key={tab.id}
+            key={`admin-tab-${tab.id}-${idx}`}
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-full font-bold text-xs sm:text-sm shrink-0 transition-all ${
               activeTab === tab.id
@@ -257,8 +257,8 @@ export const AdminDashboard = () => {
                   { day: 'Fri', count: 320, pct: '90%' },
                   { day: 'Sat', count: 380, pct: '100%' },
                   { day: 'Sun', count: 350, pct: '95%' }
-                ].map((bar) => (
-                  <div key={bar.day} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
+                ].map((bar, idx) => (
+                  <div key={`admin-bar-${bar.day}-${idx}`} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end">
                     <span className="text-[10px] font-bold text-slate-500">{bar.count}</span>
                     <div
                       style={{ height: bar.pct }}
@@ -280,8 +280,8 @@ export const AdminDashboard = () => {
                   { name: 'Woodfired Pizzas', share: '18%', count: '2,240 orders', color: 'bg-rose-500' },
                   { name: 'Pure Veg & South Indian', share: '14%', count: '1,740 orders', color: 'bg-emerald-500' },
                   { name: 'Desserts & Pastries', share: '6%', count: '760 orders', color: 'bg-purple-500' }
-                ].map((cat) => (
-                  <div key={cat.name} className="space-y-1">
+                ].map((cat, idx) => (
+                  <div key={`admin-cat-${cat.name}-${idx}`} className="space-y-1">
                     <div className="flex justify-between text-xs font-semibold">
                       <span className="text-slate-800">{cat.name}</span>
                       <span className="text-slate-500">{cat.share} ({cat.count})</span>
@@ -312,8 +312,8 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="bg-white rounded-3xl border border-slate-100 shadow-sm divide-y divide-slate-100 overflow-hidden">
-            {restaurants.map((r) => (
-              <div key={r.id} className="p-4 sm:p-5 flex items-center justify-between gap-4">
+            {restaurants.map((r, idx) => (
+              <div key={`admin-rest-${r.id || idx}-${idx}`} className="p-4 sm:p-5 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <img
                     src={r.coverImage}
@@ -359,8 +359,8 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="bg-white rounded-3xl border border-slate-100 shadow-sm divide-y divide-slate-100 overflow-hidden">
-            {foods.map((f) => (
-              <div key={f.id} className="p-4 flex items-center justify-between gap-4">
+            {foods.map((f, idx) => (
+              <div key={`admin-food-${f.id || idx}-${idx}`} className="p-4 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <img
                     src={f.image}
@@ -404,8 +404,8 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {orders.map((o) => (
-              <div key={o.id} className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {orders.map((o, idx) => (
+              <div key={`admin-order-${o.id || idx}-${idx}`} className="p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-bold bg-slate-100 text-slate-800 px-2 py-0.5 rounded">
@@ -454,8 +454,8 @@ export const AdminDashboard = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {coupons.map((c) => (
-              <div key={c.code} className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm space-y-2">
+            {coupons.map((c, idx) => (
+              <div key={`admin-coupon-${c.code || idx}-${idx}`} className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-extrabold bg-orange-100 text-orange-800 px-2.5 py-1 rounded-md">
                     {c.code}
@@ -477,8 +477,8 @@ export const AdminDashboard = () => {
       {/* TAB 6: Users & Roles */}
       {activeTab === 'users' && (
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm divide-y divide-slate-100 overflow-hidden">
-          {users.map((u) => (
-            <div key={u.id} className="p-4 sm:p-5 flex items-center justify-between">
+          {users.map((u, idx) => (
+            <div key={`admin-user-${u.id || idx}-${idx}`} className="p-4 sm:p-5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
                   src={u.avatar}

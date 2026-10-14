@@ -143,9 +143,9 @@ export const Register = () => {
           <div>
             <label className="text-xs font-bold text-slate-700 block mb-1">Select Persona</label>
             <div className="grid grid-cols-3 gap-2 text-xs">
-              {['Customer', 'Delivery Partner', 'Admin'].map((r) => (
+              {['Customer', 'Delivery Partner', 'Admin'].map((r, idx) => (
                 <button
-                  key={r}
+                  key={`persona-${r}-${idx}`}
                   type="button"
                   onClick={() => setFormData({ ...formData, role: r })}
                   className={`py-2 rounded-xl border font-bold transition-all ${

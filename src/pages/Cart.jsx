@@ -131,7 +131,7 @@ export const Cart = () => {
           {/* Cart Items List */}
           <div className="bg-white rounded-3xl border border-slate-100 shadow-sm divide-y divide-slate-100 overflow-hidden">
             {items.map((item, idx) => (
-              <div key={item.id} className="p-4 sm:p-5 flex items-start justify-between gap-4">
+              <div key={`cart-item-${item.id || idx}-${idx}`} className="p-4 sm:p-5 flex items-start justify-between gap-4">
                 <div className="flex items-start gap-3 flex-1">
                   <div className="mt-1">
                     <VegBadge isVeg={item.isVeg} />
@@ -222,9 +222,9 @@ export const Cart = () => {
             </div>
 
             <div className="grid grid-cols-4 gap-2">
-              {[0, 20, 30, 50].map((amount) => (
+              {[0, 20, 30, 50].map((amount, idx) => (
                 <button
-                  key={amount}
+                  key={`cart-tip-${amount}-${idx}`}
                   type="button"
                   onClick={() => setDeliveryTip(amount)}
                   className={`py-2 rounded-xl text-xs font-bold border transition-all ${
@@ -301,9 +301,9 @@ export const Cart = () => {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                     Available Offers
                   </span>
-                  {availableCoupons.map((c) => (
+                  {availableCoupons.map((c, idx) => (
                     <div
-                      key={c.code}
+                      key={`cart-coupon-${c.code || idx}-${idx}`}
                       className="p-3 bg-slate-50 hover:bg-orange-50/50 rounded-2xl border border-slate-200 transition-colors flex items-center justify-between"
                     >
                       <div>

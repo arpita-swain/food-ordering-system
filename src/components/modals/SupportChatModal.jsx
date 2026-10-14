@@ -86,7 +86,7 @@ export const SupportChatModal = ({ isOpen, onClose }) => {
           <div className="p-3 bg-slate-50 border-b border-slate-100 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
             {quickPrompts.map((p, idx) => (
               <button
-                key={idx}
+                key={`quick-prompt-${idx}`}
                 onClick={() => handleSend(p)}
                 className="shrink-0 px-2.5 py-1 bg-white hover:bg-orange-50 border border-slate-200 hover:border-orange-200 text-slate-700 hover:text-orange-600 rounded-full text-[11px] font-medium transition-colors"
               >
@@ -97,9 +97,9 @@ export const SupportChatModal = ({ isOpen, onClose }) => {
 
           {/* Chat Messages */}
           <div className="p-4 flex-1 overflow-y-auto space-y-3">
-            {messages.map((m) => (
+            {messages.map((m, idx) => (
               <div
-                key={m.id}
+                key={`chat-msg-${m.id || idx}-${idx}`}
                 className={`flex gap-2.5 ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {m.sender === 'bot' && (

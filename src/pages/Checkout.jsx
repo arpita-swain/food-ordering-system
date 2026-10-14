@@ -159,11 +159,11 @@ export const Checkout = () => {
 
             {/* Saved Addresses Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {addresses.map((addr) => {
+              {addresses.map((addr, idx) => {
                 const isSelected = selectedAddress.id === addr.id;
                 return (
                   <div
-                    key={addr.id}
+                    key={`checkout-addr-${addr.id || idx}-${idx}`}
                     onClick={() => setSelectedAddress(addr)}
                     className={`p-4 rounded-2xl border cursor-pointer transition-all ${
                       isSelected
@@ -273,9 +273,9 @@ export const Checkout = () => {
                 { id: 'CARD', label: 'Cards', icon: '💳' },
                 { id: 'NETBANKING', label: 'Net Banking', icon: '🏦' },
                 { id: 'COD', label: 'Cash on Delivery', icon: '💵' }
-              ].map(({ id, label, icon }) => (
+              ].map(({ id, label, icon }, idx) => (
                 <button
-                  key={id}
+                  key={`checkout-method-${id}-${idx}`}
                   type="button"
                   onClick={() => setPaymentMethod(id)}
                   className={`p-3 rounded-2xl border text-center transition-all ${
@@ -309,8 +309,8 @@ export const Checkout = () => {
 
             {/* Items snippet */}
             <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-              {items.map((it) => (
-                <div key={it.id} className="flex justify-between text-xs text-slate-700">
+              {items.map((it, idx) => (
+                <div key={`checkout-item-${it.id || idx}-${idx}`} className="flex justify-between text-xs text-slate-700">
                   <div className="truncate max-w-[170px]">
                     <span className="font-semibold">{it.quantity}x</span> {it.name}
                   </div>

@@ -151,9 +151,9 @@ export const Search = () => {
                   <span>Recent Searches</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {recentSearches.map((s) => (
+                  {recentSearches.map((s, idx) => (
                     <button
-                      key={s}
+                      key={`recent-${s}-${idx}`}
                       onClick={() => executeSearchTag(s)}
                       className="px-3 py-1.5 bg-slate-100 hover:bg-orange-50 hover:text-orange-600 rounded-xl text-xs sm:text-sm text-slate-700 font-medium transition-colors"
                     >
@@ -171,9 +171,9 @@ export const Search = () => {
                 <span>Popular Trending Cravings</span>
               </div>
               <div className="flex flex-wrap gap-2">
-                {popularSearches.map((item) => (
+                {popularSearches.map((item, idx) => (
                   <button
-                    key={item}
+                    key={`popular-${item}-${idx}`}
                     onClick={() => executeSearchTag(item)}
                     className="px-3.5 py-2 bg-white hover:bg-orange-50 border border-slate-200 hover:border-orange-300 rounded-2xl text-xs sm:text-sm text-slate-700 hover:text-orange-600 font-semibold transition-all shadow-xs"
                   >
@@ -220,18 +220,18 @@ export const Search = () => {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[1, 2, 3, 4].map((i) => (
-                <FoodSkeleton key={i} />
+                <FoodSkeleton key={`search-skel-${i}`} />
               ))}
             </div>
           ) : activeTab === 'dishes' ? (
             matchedFoods.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {matchedFoods.map((food) => {
+                {matchedFoods.map((food, idx) => {
                   const rest = allRestaurants.find((r) => r.id === food.restaurantId) || {
                     id: food.restaurantId,
                     name: 'Restaurant'
                   };
-                  return <FoodCard key={food.id} food={food} restaurant={rest} />;
+                  return <FoodCard key={`search-food-${food.id || idx}-${idx}`} food={food} restaurant={rest} />;
                 })}
               </div>
             ) : (
@@ -245,8 +245,8 @@ export const Search = () => {
             )
           ) : matchedRestaurants.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {matchedRestaurants.map((restaurant) => (
-                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+              {matchedRestaurants.map((restaurant, idx) => (
+                <RestaurantCard key={`search-rest-${restaurant.id || idx}-${idx}`} restaurant={restaurant} />
               ))}
             </div>
           ) : (

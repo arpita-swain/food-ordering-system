@@ -41,7 +41,8 @@ class LocalDatabase {
     if (!localStorage.getItem('foodiego_restaurants')) {
       localStorage.setItem('foodiego_restaurants', JSON.stringify(INITIAL_RESTAURANTS));
     }
-    if (!localStorage.getItem('foodiego_food_items')) {
+    const existingFoods = localStorage.getItem('foodiego_food_items');
+    if (!existingFoods || JSON.parse(existingFoods).length < INITIAL_FOOD_ITEMS.length) {
       localStorage.setItem('foodiego_food_items', JSON.stringify(INITIAL_FOOD_ITEMS));
     }
     if (!localStorage.getItem('foodiego_categories')) {

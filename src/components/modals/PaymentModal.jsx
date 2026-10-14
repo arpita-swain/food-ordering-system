@@ -126,9 +126,9 @@ export const PaymentModal = ({
                       { id: 'CARD', label: 'Card', icon: CreditCard },
                       { id: 'NETBANKING', label: 'Net Banking', icon: Building2 },
                       { id: 'COD', label: 'Cash on Delivery', icon: Banknote }
-                    ].map(({ id, label, icon: Icon }) => (
+                    ].map(({ id, label, icon: Icon }, idx) => (
                       <button
-                        key={id}
+                        key={`paymethod-${id}-${idx}`}
                         type="button"
                         onClick={() => setSelectedMethod(id)}
                         className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
@@ -222,7 +222,7 @@ export const PaymentModal = ({
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         {['HDFC Bank', 'State Bank of India', 'ICICI Bank', 'Axis Bank'].map((bank, i) => (
                           <div
-                            key={bank}
+                            key={`bank-${bank}-${i}`}
                             className={`p-2.5 rounded-xl border bg-white flex items-center gap-2 cursor-pointer ${
                               i === 0 ? 'border-orange-500 text-orange-600 font-bold' : 'border-slate-200'
                             }`}

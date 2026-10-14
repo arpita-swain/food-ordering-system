@@ -92,12 +92,14 @@ export const RestaurantDetails = () => {
   };
 
   // Derive unique categories from menu items
-  const menuCategories = [
-    'All',
-    'Recommended',
-    'Bestsellers',
-    ...Array.from(new Set(menuItems.map((f) => f.category)))
-  ];
+  const menuCategories = Array.from(
+    new Set([
+      'All',
+      'Recommended',
+      'Bestsellers',
+      ...menuItems.map((f) => f.category).filter(Boolean)
+    ])
+  );
 
   // Filter menu items
   const filteredFoods = menuItems.filter((item) => {
@@ -216,9 +218,9 @@ export const RestaurantDetails = () => {
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
           {/* Menu Category Pills */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-            {menuCategories.map((category) => (
+            {menuCategories.map((category, idx) => (
               <button
-                key={category}
+                key={`cat-${category}-${idx}`}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full text-xs sm:text-sm font-bold shrink-0 transition-all ${
                   selectedCategory === category
@@ -276,8 +278,8 @@ export const RestaurantDetails = () => {
 
           {filteredFoods.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredFoods.map((food) => (
-                <FoodCard key={food.id} food={food} restaurant={restaurant} />
+              {filteredFoods.map((food, idx) => (
+                <FoodCard key={`food-${food.id || idx}-${idx}`} food={food} restaurant={restaurant} />
               ))}
             </div>
           ) : (

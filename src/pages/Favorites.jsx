@@ -84,8 +84,8 @@ export const Favorites = () => {
       {activeTab === 'restaurants' ? (
         savedRestaurantsList.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {savedRestaurantsList.map((rest) => (
-              <RestaurantCard key={rest.id} restaurant={rest} />
+            {savedRestaurantsList.map((rest, idx) => (
+              <RestaurantCard key={`fav-rest-${rest.id || idx}-${idx}`} restaurant={rest} />
             ))}
           </div>
         ) : (
@@ -99,12 +99,12 @@ export const Favorites = () => {
         )
       ) : savedFoodsList.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {savedFoodsList.map((food) => {
+          {savedFoodsList.map((food, idx) => {
             const rest = allRestaurants.find((r) => r.id === food.restaurantId) || {
               id: food.restaurantId,
               name: 'Restaurant'
             };
-            return <FoodCard key={food.id} food={food} restaurant={rest} />;
+            return <FoodCard key={`fav-food-${food.id || idx}-${idx}`} food={food} restaurant={rest} />;
           })}
         </div>
       ) : (

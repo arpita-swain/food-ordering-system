@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   User,
   MapPin,
@@ -10,15 +11,41 @@ import {
   CheckCircle,
   Home,
   Briefcase,
-  ShieldCheck
+  ShieldCheck,
+  Package,
+  Truck,
+  ArrowRight,
+  FileDown
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { AddressModal } from '../components/modals/AddressModal';
+import { orderApi } from '../api/orderApi';
+import { formatCurrency, formatDate } from '../utils/formatters';
+import { downloadInvoice } from '../utils/invoiceGenerator';
 
 export const Profile = () => {
   const { user, addresses, logout, removeAddress, setDefaultAddress } = useAuth();
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('addresses'); // 'addresses' | 'payments' | 'notifications'
+  const [activeTab, setActiveTab] = useState('orders'); // 'orders' | 'addresses' | 'payments' | 'notifications'
+  const [myOrders, setMyOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+
+  useEffect(() => {
+    const loadPastOrders = async () => {
+      try {
+        setLoadingOrders(true);
+        const data = await orderApi.getOrderHistory();
+        setMyOrders(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error('Error fetching profile orders', err);
+        const fallback = await orderApi.getOrders();
+        setMyOrders(Array.isArray(fallback) ? fallback : []);
+      } finally {
+        setLoadingOrders(false);
+      }
+    };
+    loadPastOrders();
+  }, []);
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
@@ -59,10 +86,22 @@ export const Profile = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 mb-6 border-b border-slate-200 pb-3">
+      <div className="flex items-center gap-2 mb-6 border-b border-slate-200 pb-3 overflow-x-auto">
+        <button
+          onClick={() => setActiveTab('orders')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all shrink-0 ${
+            activeTab === 'orders'
+              ? 'bg-orange-500 text-white shadow-sm shadow-orange-500/20'
+              : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <Package className="w-4 h-4" />
+          <span>My Orders ({myOrders.length})</span>
+        </button>
+
         <button
           onClick={() => setActiveTab('addresses')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all shrink-0 ${
             activeTab === 'addresses'
               ? 'bg-slate-900 text-white shadow-sm'
               : 'text-slate-600 hover:bg-slate-100'
@@ -74,7 +113,7 @@ export const Profile = () => {
 
         <button
           onClick={() => setActiveTab('payments')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all shrink-0 ${
             activeTab === 'payments'
               ? 'bg-slate-900 text-white shadow-sm'
               : 'text-slate-600 hover:bg-slate-100'
@@ -86,7 +125,7 @@ export const Profile = () => {
 
         <button
           onClick={() => setActiveTab('notifications')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-full font-bold text-xs sm:text-sm transition-all shrink-0 ${
             activeTab === 'notifications'
               ? 'bg-slate-900 text-white shadow-sm'
               : 'text-slate-600 hover:bg-slate-100'
@@ -96,6 +135,102 @@ export const Profile = () => {
           <span>Notifications</span>
         </button>
       </div>
+
+      {/* Tab: My Orders */}
+      {activeTab === 'orders' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-base font-bold text-slate-900">Your Recent Orders</h3>
+              <p className="text-xs text-slate-500">Fast access to past meals and live GPS tracking</p>
+            </div>
+            <Link
+              to="/orders"
+              className="text-xs font-bold text-orange-600 hover:text-orange-700 flex items-center gap-1 group"
+            >
+              <span>View All in Orders Hub</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
+
+          {loadingOrders ? (
+            <div className="bg-white p-8 rounded-3xl border border-slate-100 text-center">
+              <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+              <p className="text-xs text-slate-500">Loading order history...</p>
+            </div>
+          ) : myOrders.length === 0 ? (
+            <div className="bg-white p-8 rounded-3xl border border-slate-100 text-center">
+              <span className="text-3xl block mb-2">📦</span>
+              <h4 className="text-sm font-bold text-slate-800">No Orders Placed Yet</h4>
+              <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+                Explore local partner restaurants, order your favorite food, and track deliveries here.
+              </p>
+              <Link
+                to="/"
+                className="mt-4 inline-block px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-xl shadow-md shadow-orange-500/20"
+              >
+                Browse Restaurants
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {myOrders.slice(0, 5).map((order, idx) => (
+                <div
+                  key={`profile-order-${order.id || idx}-${idx}`}
+                  className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-slate-900 text-sm sm:text-base">
+                        {order.restaurantName}
+                      </span>
+                      <span className="text-[11px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                        #{order.id}
+                      </span>
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          order.status === 'Delivered'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : 'bg-orange-50 text-orange-700 border border-orange-200'
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </div>
+
+                    <div className="text-xs text-slate-500">
+                      {order.items?.map((i) => `${i.quantity}x ${i.name}`).join(', ')}
+                    </div>
+
+                    <div className="text-[11px] text-slate-400">
+                      {formatDate(order.date)} • {formatCurrency(order.pricing?.grandTotal)} via {order.payment?.method || 'UPI'}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Link
+                      to={`/track/${order.id}`}
+                      className="px-3 py-1.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs flex items-center gap-1 shadow-sm"
+                    >
+                      <Truck className="w-3.5 h-3.5" />
+                      <span>Track</span>
+                    </Link>
+
+                    <button
+                      onClick={() => downloadInvoice(order)}
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 font-semibold text-xs flex items-center gap-1"
+                      title="Download Invoice"
+                    >
+                      <FileDown className="w-3.5 h-3.5" />
+                      <span>Invoice</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Tab: Saved Addresses */}
       {activeTab === 'addresses' && (
@@ -112,9 +247,9 @@ export const Profile = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {addresses.map((addr) => (
+            {addresses.map((addr, idx) => (
               <div
-                key={addr.id}
+                key={`profile-addr-${addr.id || idx}-${idx}`}
                 className="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-4"
               >
                 <div>
@@ -216,7 +351,7 @@ export const Profile = () => {
               { title: 'Exclusive Promo Codes', desc: 'Alerts when SAVE50 or FLAT ₹100 offers are available in Dantan' },
               { title: 'Kitchen & Chef Recommendations', desc: 'Weekend recommendations from top trending restaurants' }
             ].map((n, idx) => (
-              <label key={idx} className="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200 cursor-pointer">
+              <label key={`notif-pref-${idx}-${n.title}`} className="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200 cursor-pointer">
                 <div>
                   <div className="text-xs sm:text-sm font-bold text-slate-900">{n.title}</div>
                   <div className="text-[11px] text-slate-400 mt-0.5">{n.desc}</div>

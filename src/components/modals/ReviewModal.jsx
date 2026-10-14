@@ -82,7 +82,7 @@ export const ReviewModal = ({ isOpen, onClose, order, onReviewSubmitted }) => {
               <div className="flex justify-center gap-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
-                    key={star}
+                    key={`rest-star-${star}`}
                     type="button"
                     onClick={() => setRestaurantRating(star)}
                     className="p-1.5 focus:outline-none hover:scale-110 active:scale-95 transition-transform"
@@ -107,7 +107,7 @@ export const ReviewModal = ({ isOpen, onClose, order, onReviewSubmitted }) => {
               <div className="flex justify-center gap-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
-                    key={star}
+                    key={`food-star-${star}`}
                     type="button"
                     onClick={() => setFoodRating(star)}
                     className="p-1.5 focus:outline-none hover:scale-110 active:scale-95 transition-transform"
@@ -130,11 +130,11 @@ export const ReviewModal = ({ isOpen, onClose, order, onReviewSubmitted }) => {
                 What did you love most?
               </label>
               <div className="flex flex-wrap gap-2">
-                {tagsList.map((tag) => {
+                {tagsList.map((tag, idx) => {
                   const isSelected = selectedTags.includes(tag);
                   return (
                     <button
-                      key={tag}
+                      key={`review-tag-${tag}-${idx}`}
                       type="button"
                       onClick={() => toggleTag(tag)}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${

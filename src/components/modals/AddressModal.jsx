@@ -112,9 +112,9 @@ export const AddressModal = ({ isOpen, onClose, onAddressAdded }) => {
                     { label: 'Home', icon: Home },
                     { label: 'Work', icon: Briefcase },
                     { label: 'Other', icon: MapPin }
-                  ].map(({ label, icon: Icon }) => (
+                  ].map(({ label, icon: Icon }, idx) => (
                     <button
-                      key={label}
+                      key={`addr-type-${label}-${idx}`}
                       type="button"
                       onClick={() => setFormData({ ...formData, type: label })}
                       className={`flex items-center justify-center gap-2 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all ${

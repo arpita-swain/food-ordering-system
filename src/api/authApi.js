@@ -78,12 +78,15 @@ export const authApi = {
   // Get currently logged-in user
   async getCurrentUser() {
     try {
+      const token = localStorage.getItem('foodiego_jwt_token');
+      if (!token) return null;
       return (await apiClient.get('/auth/me')).data;
     } catch {
+      const token = localStorage.getItem('foodiego_jwt_token');
+      if (!token) return null;
       const saved = localStorage.getItem('foodiego_current_user');
       if (saved) return JSON.parse(saved);
-      const users = localDb.get('users');
-      return users[0] || null;
+      return null;
     }
   },
 

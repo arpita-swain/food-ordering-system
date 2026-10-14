@@ -482,6 +482,180 @@ export const INITIAL_FOOD_ITEMS = [
         { name: 'Vanilla Ice Cream Scoop', price: 35 }
       ]
     }
+  },
+  {
+    id: 'food-602',
+    restaurantId: 'rest-6',
+    name: 'Warm Gulab Jamun with Kesari Rabdi',
+    category: 'Desserts',
+    description: 'Golden mawa dumplings soaked in cardamom saffron syrup, served warm with chilled rich slow-reduced rabdi.',
+    price: 99,
+    rating: 4.8,
+    ratingCount: 920,
+    isVeg: true,
+    isBestseller: true,
+    isRecommended: true,
+    image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: '2 Pieces + Rabdi', price: 0 },
+        { name: '4 Pieces Family Cup', price: 80 }
+      ],
+      extras: [
+        { name: 'Pistachio Flakes Garnish', price: 15 }
+      ]
+    }
+  },
+
+  // Wok & Roll Asian Street (rest-4)
+  {
+    id: 'food-401',
+    restaurantId: 'rest-4',
+    name: 'Steamed Darjeeling Chicken Momos',
+    category: 'Chinese',
+    description: 'Delicate hand-rolled dumplings stuffed with juicy minced chicken, spring onions, and ginger, served with fiery spicy red chutney.',
+    price: 159,
+    rating: 4.8,
+    ratingCount: 1680,
+    isVeg: false,
+    isBestseller: true,
+    isRecommended: true,
+    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: 'Steamed (6 pcs)', price: 0 },
+        { name: 'Pan-Fried Crispy (6 pcs)', price: 25 },
+        { name: 'Platter (12 pcs)', price: 120 }
+      ],
+      extras: [
+        { name: 'Extra Fiery Chilli Dip', price: 20 },
+        { name: 'Creamy Mayo Dip', price: 15 }
+      ]
+    }
+  },
+  {
+    id: 'food-402',
+    restaurantId: 'rest-4',
+    name: 'Chilli Garlic Hakka Noodles',
+    category: 'Chinese',
+    description: 'Wok-tossed noodles with shredded vegetables, roasted garlic, and scallions in spicy soy-chilli seasoning.',
+    price: 179,
+    rating: 4.6,
+    ratingCount: 840,
+    isVeg: true,
+    isBestseller: true,
+    isRecommended: true,
+    image: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: 'Veg Hakka', price: 0 },
+        { name: 'Egg & Chicken Tossed', price: 50 }
+      ],
+      extras: [
+        { name: 'Schezwan Sauce Cup', price: 25 }
+      ]
+    }
+  },
+  {
+    id: 'food-403',
+    restaurantId: 'rest-4',
+    name: 'Kolkata Double Egg Chicken Roll',
+    category: 'Rolls',
+    description: 'Flaky pan-fried paratha layered with twin beaten eggs, spiced chicken chunks, chopped onions, green chillies, and lemon juice.',
+    price: 139,
+    rating: 4.7,
+    ratingCount: 1120,
+    isVeg: false,
+    isBestseller: true,
+    isRecommended: false,
+    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: 'Single Roll', price: 0 },
+        { name: 'Jumbo Double Filling', price: 45 }
+      ],
+      extras: [
+        { name: 'Extra Cheese Slice', price: 25 }
+      ]
+    }
+  },
+
+  // Woodfire Pizza Hub (rest-3) additions
+  {
+    id: 'food-303',
+    restaurantId: 'rest-3',
+    name: 'Paneer Tikka Woodfired Pizza',
+    category: 'Pizza',
+    description: 'Handcrafted slow-fermented crust topped with tandoori paneer, red bell peppers, charred onions, and fresh mozzarella.',
+    price: 359,
+    rating: 4.7,
+    ratingCount: 780,
+    isVeg: true,
+    isBestseller: true,
+    isRecommended: true,
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: 'Regular 9"', price: 0 },
+        { name: 'Large 12"', price: 140 }
+      ],
+      extras: [
+        { name: 'Cheese Burst Crust', price: 75 },
+        { name: 'Extra Jalapenos', price: 30 }
+      ]
+    }
+  },
+
+  // Burger Craft Co. (rest-2) additions
+  {
+    id: 'food-204',
+    restaurantId: 'rest-2',
+    name: 'Loaded Peri-Peri Cheese Fries',
+    category: 'Burgers',
+    description: 'Crispy golden potato fries dusted with tangy African bird-eye chilli blend, smothered in molten cheddar cheese sauce.',
+    price: 149,
+    rating: 4.8,
+    ratingCount: 1530,
+    isVeg: true,
+    isBestseller: true,
+    isRecommended: true,
+    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: 'Regular Bowl', price: 0 },
+        { name: 'Monster Sharing Bucket', price: 60 }
+      ],
+      extras: [
+        { name: 'Bacon / Chicken Crunch Bits', price: 40 },
+        { name: 'Spicy Garlic Mayo Dip', price: 20 }
+      ]
+    }
+  },
+
+  // Spice Garden Royal (rest-1) additions
+  {
+    id: 'food-106',
+    restaurantId: 'rest-1',
+    name: 'Royal Tandoori Chicken Tikka',
+    category: 'Indian',
+    description: 'Succulent boneless chicken morsels marinated in Kashmiri deghi mirch, hung curd, and roasted cumin, clay-oven roasted to smoky perfection.',
+    price: 299,
+    rating: 4.9,
+    ratingCount: 1390,
+    isVeg: false,
+    isBestseller: true,
+    isRecommended: true,
+    image: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=600&auto=format&fit=crop&q=80',
+    customizations: {
+      sizes: [
+        { name: 'Half (6 pcs)', price: 0 },
+        { name: 'Full (12 pcs)', price: 220 }
+      ],
+      extras: [
+        { name: 'Mint Chutney & Ring Onions', price: 20 },
+        { name: 'Butter Rum Glaze', price: 30 }
+      ]
+    }
   }
 ];
 

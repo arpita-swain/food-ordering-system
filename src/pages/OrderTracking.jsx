@@ -181,7 +181,7 @@ export const OrderTracking = () => {
                 const isCurrent = idx === currentStatusIdx;
 
                 return (
-                  <div key={step.label} className="relative flex items-start gap-4">
+                  <div key={`tracking-step-${step.label}-${idx}`} className="relative flex items-start gap-4">
                     <div
                       className={`absolute -left-6 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border-2 transition-all ${
                         isPassed
@@ -307,7 +307,7 @@ export const OrderTracking = () => {
 
             <div className="divide-y divide-slate-100">
               {(order.items || []).map((item, idx) => (
-                <div key={idx} className="py-2.5 flex justify-between items-center text-xs sm:text-sm">
+                <div key={`track-item-${item.id || item.name || idx}-${idx}`} className="py-2.5 flex justify-between items-center text-xs sm:text-sm">
                   <div>
                     <span className="font-bold text-slate-800">{item.quantity}x</span>{' '}
                     <span className="font-medium text-slate-800">{item.name}</span>

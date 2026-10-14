@@ -50,6 +50,7 @@ export const CategoryScroll = ({ categories = [], selectedCategory, onSelectCate
       >
         {/* "All" category pill */}
         <motion.button
+          key="category-all-pill"
           whileHover={{ y: -4, scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => onSelectCategory('All')}
@@ -75,12 +76,12 @@ export const CategoryScroll = ({ categories = [], selectedCategory, onSelectCate
           </span>
         </motion.button>
 
-        {categories.map((cat) => {
+        {categories.map((cat, idx) => {
           const isSelected = selectedCategory?.toLowerCase() === cat.name.toLowerCase();
 
           return (
             <motion.button
-              key={cat.id}
+              key={`cat-pill-${cat.id || cat.name || idx}-${idx}`}
               whileHover={{ y: -4, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => onSelectCategory(cat.name)}

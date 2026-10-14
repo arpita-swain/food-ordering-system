@@ -110,11 +110,11 @@ export const LocationModal = () => {
               </div>
 
               <div className="space-y-2">
-                {addresses.map((addr) => {
+                {addresses.map((addr, idx) => {
                   const isCurrent = currentLocation?.address === addr.street || currentLocation?.label === addr.type;
                   return (
                     <div
-                      key={addr.id}
+                      key={`loc-addr-${addr.id || idx}-${idx}`}
                       onClick={() =>
                         setLocation({
                           label: addr.type,

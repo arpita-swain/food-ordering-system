@@ -13,7 +13,8 @@ import {
   Package,
   HelpCircle,
   LogOut,
-  Sparkles
+  Sparkles,
+  Download
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
@@ -229,6 +230,15 @@ export const Header = () => {
                       <HelpCircle className="w-4 h-4 text-slate-400" />
                       <span>Help & Support</span>
                     </Link>
+                    <a
+                      href="/foodiego-backend.zip"
+                      download="foodiego-backend.zip"
+                      onClick={() => setProfileDropdownOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-2 hover:bg-amber-50 text-amber-600 font-semibold"
+                    >
+                      <Download className="w-4 h-4 text-amber-500" />
+                      <span>Download Backend (.ZIP)</span>
+                    </a>
                     <div className="border-t border-slate-100 mt-1 pt-1">
                       <button
                         onClick={() => {
@@ -331,6 +341,15 @@ export const Header = () => {
             <User className="w-4 h-4 text-orange-500" />
             <span>Profile & Addresses</span>
           </Link>
+          <a
+            href="/foodiego-backend.zip"
+            download="foodiego-backend.zip"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 py-2 text-amber-600 font-bold border-t border-slate-100 pt-3"
+          >
+            <Download className="w-4 h-4 text-amber-500" />
+            <span>Download Backend (.ZIP)</span>
+          </a>
         </div>
       )}
     </header>
